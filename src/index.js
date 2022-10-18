@@ -4,6 +4,7 @@ const app = express();
 const morgan = require("morgan");
 const Game = require('./game.controller')
 
+
 //Configuraciones
 app.set("port", process.env.PORT || 3000);
 app.set("json spaces", 2);
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(cors())
 
 //Routes
-app.get("/game/:game", Game.get);
+app.get("/steam/:game", Game.get);
 app.get("/games", Game.list);
 
 
