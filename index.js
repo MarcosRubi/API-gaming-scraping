@@ -2,7 +2,7 @@ const cors = require('cors')
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const Game = require('./game.controller')
+const Game = require('./src/game.controller')
 
 
 //Configuraciones
