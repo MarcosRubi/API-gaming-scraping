@@ -29,7 +29,7 @@ const Game = {
                 }
                 let name = document.querySelector('#search_resultsRows a .title').textContent
                 let imgUrl = document.querySelector('#search_resultsRows a img').src
-                let price = document.querySelector('#search_resultsRows a .search_price').textContent.split('$').splice(1)
+                let price = document.querySelector('#search_resultsRows a .search_price').textContent.trim().split('$').splice(1)
                 let discount = document.querySelector('#search_resultsRows a .search_discount').textContent.trim()
                 const data = {
                     name,
