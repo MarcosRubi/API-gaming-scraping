@@ -16,7 +16,9 @@ app.use(express.json());
 app.use(cors())
 
 //Routes
-app.get("/steam/:game", Game.get);
+app.get("/steam/:game", Game.getSteam);
+app.get("/gog/:game", Game.getGog);
+app.get("/instant-gaming/:game", Game.getInstantGaming);
 app.get("/games", Game.list);
 
 
