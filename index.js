@@ -24,6 +24,7 @@ app.get("/top-sellers-steam", Game.getSteamTopSellers);
 app.get("/top-offers-steam", Game.getSteamTopOffers);
 app.get("/new-releases-steam", Game.getSteamNewReleases);
 
+app.get("/top-sellers-gog", Game.getGogTopSellers);
 
 //Iniciando el servidor
 app.listen(app.get("port"), () => {
