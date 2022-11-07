@@ -189,44 +189,28 @@ const Game = {
                 } = new jsdom.JSDOM(body);
 
                 // Seleccionamos los títulos y lo mostramos en consola
-                let notFound = document.querySelector(
-                    ".product-tile.product-tile--grid"
-                );
+                let notFound = document.querySelector(".product-tile.product-tile--grid");
                 if (notFound === null) {
                     res.status(200).json({ gog: "null" });
                     return;
                 }
-                let name = document.querySelector(".product-tile__title").title;
-                let imgUrl = document
-                    .querySelector(".product-tile.product-tile--grid source")
-                    .srcset.split(",")[0];
-                let price = document
-                    .querySelector("price-value")
-                    .textContent.trim()
-                    .split("$")
-                    .splice(1);
-                let discount =
-                    document
-                        .querySelector("price-value")
-                        .textContent.trim()
-                        .split("$")
-                        .splice(1).length === 1
-                        ? ""
-                        : document
-                              .querySelector("price-discount")
-                              .textContent.trim();
-                let url = document.querySelector(
-                    ".product-tile.product-tile--grid"
-                ).href;
-                const data = {
-                    name,
-                    imgUrl,
-                    price,
-                    discount,
-                    url,
-                };
 
-                res.status(200).json(data);
+                let games = document.querySelectorAll('.paginated-products-grid product-tile')
+                let results = []
+
+                games.forEach((game, index) => {
+                    if(index>4){return}
+
+                    let name = game.querySelector(".product-tile__title").title;
+                    let imgUrl = game.querySelector(".product-tile.product-tile--grid source").srcset.split(",")[0];
+                    let price = game.querySelector("price-value") ? game.querySelector("price-value").textContent.trim().split("$").splice(1) : ['Gratis'];
+                    let discount = price.length === 1 ? "" : game.querySelector("price-discount").textContent.trim();
+                    let url = game.querySelector(".product-tile.product-tile--grid").href;
+
+                    results.push({name, imgUrl, price, discount, url})
+                });
+
+                res.status(200).json(results);
 
                 // Cerramos el puppeteer
                 await browser.close();
