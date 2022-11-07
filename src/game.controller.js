@@ -33,7 +33,9 @@ const Game = {
     
                     let name = game.querySelector("#search_resultsRows a .title").textContent;
                     let imgUrl = game.querySelector("#search_resultsRows a img").src;
-                    let price = game.querySelector('.search_price').textContent.trim().split('$').splice(1)
+                    let price = game.querySelector('.search_price strike')
+                        ? [{now:`$${game.querySelector('.search_price').textContent.trim().split('$').slice(2,3)[0]}`}, {old:game.querySelector('.search_price strike').textContent}]
+                        : [{now:game.querySelector('.search_price').textContent.trim()}]
                     let discount = game.querySelector(".search_discount").textContent.trim()
                     let url = game.href
     
@@ -74,7 +76,7 @@ const Game = {
                     if(index > 7){return}
                     let name = game.querySelector(".tab_item_name").textContent;
                     let imgUrl = game.querySelector(".tab_item_cap img").src;
-                    let price = game.querySelector(".discount_final_price") ? game.querySelector(".discount_final_price").textContent : '';
+                    let price = game.querySelector('.discount_original_price') ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] : [game.querySelector(".discount_final_price") ? {now:game.querySelector(".discount_final_price").textContent} : '']
                     let discount = game.querySelector(".discount_pct") ? game.querySelector(".discount_pct").textContent : ''
                     let url = game.href;
 
@@ -115,7 +117,7 @@ const Game = {
                     if(index > 7){return}
                     let name = game.querySelector(".tab_item_name").textContent;
                     let imgUrl = game.querySelector(".tab_item_cap img").src;
-                    let price = game.querySelector(".discount_final_price") ? game.querySelector(".discount_final_price").textContent : '';
+                    let price = game.querySelector('.discount_original_price') ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] : [game.querySelector(".discount_final_price") ? {now:game.querySelector(".discount_final_price").textContent} : '']
                     let discount = game.querySelector(".discount_pct") ? game.querySelector(".discount_pct").textContent : ''
                     let url = game.href;
 
@@ -156,7 +158,7 @@ const Game = {
                     if(index > 7){return}
                     let name = game.querySelector(".tab_item_name").textContent;
                     let imgUrl = game.querySelector(".tab_item_cap img").src;
-                    let price = game.querySelector(".discount_final_price") ? game.querySelector(".discount_final_price").textContent : '';
+                    let price = game.querySelector('.discount_original_price') ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] : [game.querySelector(".discount_final_price") ? {now:game.querySelector(".discount_final_price").textContent} : '']
                     let discount = game.querySelector(".discount_pct") ? game.querySelector(".discount_pct").textContent : ''
                     let url = game.href;
 
@@ -245,8 +247,8 @@ const Game = {
                     let name = game.querySelector(".product-tile__title").textContent;
                     let imgUrl = game.querySelector("picture source").getAttribute('lazy-srcset').trim().split('\n')[0]
                     let price = game.querySelector('.product-tile__price') 
-                        ? [game.querySelector('.product-tile__price-discounted').textContent.trim(),game.querySelector(".product-tile__price").textContent] 
-                        : [game.querySelector('.product-tile__price-discounted').textContent]
+                        ? [{now:game.querySelector('.product-tile__price-discounted').textContent.trim()},{old:game.querySelector(".product-tile__price").textContent}] 
+                        : [{now:game.querySelector('.product-tile__price-discounted').textContent}]
                     let discount = game.querySelector(".product-tile__discount") ? game.querySelector(".product-tile__discount").textContent : ''
                     let url = `https://www.gog.com${game.querySelector('a').href}`;
 
