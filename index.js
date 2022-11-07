@@ -16,6 +16,8 @@ app.use(express.json());
 app.use(cors())
 
 //Routes
+app.get("/",  (req, res) => res.status(200).send('Hello'));
+
 app.get("/steam/:game", Game.getSteam);
 app.get("/gog/:game", Game.getGog);
 app.get("/instant-gaming/:game", Game.getInstantGaming);
@@ -27,6 +29,10 @@ app.get("/new-releases-steam", Game.getSteamNewReleases);
 app.get("/top-sellers-gog", Game.getGogTopSellers);
 app.get("/top-old-games-gog", Game.getGogGoodOldGames);
 app.get("/new-releases-gog", Game.getGogNewReleases);
+
+app.get("/top-sellers-instant-gaming", Game.getInstantGamingTopSellers);
+app.get("/top-offers-instant-gaming", Game.getInstantGamingTopOffers);
+app.get("/top-indie-games-instant-gaming", Game.getInstantGamingTopIndieGames);
 
 //Iniciando el servidor
 app.listen(app.get("port"), () => {

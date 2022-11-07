@@ -5,7 +5,7 @@ const Game = {
     getSteam: (req, res) => {
         (async () => {
             try {
-                // Abrimos una instancia del puppeteer y accedemos a la url de google
+                // Abrimos una instancia del puppeteer y accedemos a la url 
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
                 const response = await page.goto(
@@ -18,7 +18,7 @@ const Game = {
                     window: { document },
                 } = new jsdom.JSDOM(body);
     
-                // Seleccionamos los títulos y lo mostramos en consola
+                // Validamos si encontro resultados
                 let notFound = document.querySelector("#search_resultsRows a");
                 if (notFound === null) {
                     res.status(200).json({ steam: "null" });
@@ -29,7 +29,7 @@ const Game = {
                 let results = []
     
                 games.forEach((game, index) => {
-                    if(index > 4){return}
+                    if(index > 4){return} //Limitamos a 5 resultados
     
                     let name = game.querySelector("#search_resultsRows a .title").textContent;
                     let imgUrl = game.querySelector("#search_resultsRows a img").src;
@@ -56,7 +56,7 @@ const Game = {
     getSteamTopSellers: (req, res) => {
         (async () => {
             try {
-                // Abrimos una instancia del puppeteer y accedemos a la url de google
+                // Abrimos una instancia del puppeteer y accedemos a la url 
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
                 const response = await page.goto(
@@ -75,7 +75,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return}
+                    if(index > 7){return} //Limitamos a 8 resultados
                     let name = game.querySelector(".tab_item_name").textContent;
                     let imgUrl = game.querySelector(".tab_item_cap img").src;
                     let price = game.querySelector('.discount_original_price') 
@@ -101,7 +101,7 @@ const Game = {
     getSteamTopOffers: (req, res) => {
         (async () => {
             try {
-                // Abrimos una instancia del puppeteer y accedemos a la url de google
+                // Abrimos una instancia del puppeteer y accedemos a la url 
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
                 const response = await page.goto(
@@ -120,7 +120,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return}
+                    if(index > 7){return} //Limitamos a 8 resultados
                     let name = game.querySelector(".tab_item_name").textContent;
                     let imgUrl = game.querySelector(".tab_item_cap img").src;
                     let price = game.querySelector('.discount_original_price') ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] : [game.querySelector(".discount_final_price") ? {now:game.querySelector(".discount_final_price").textContent} : '']
@@ -142,7 +142,7 @@ const Game = {
     getSteamNewReleases: (req, res) => {
         (async () => {
             try {
-                // Abrimos una instancia del puppeteer y accedemos a la url de google
+                // Abrimos una instancia del puppeteer y accedemos a la url 
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
                 const response = await page.goto(
@@ -161,7 +161,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return}
+                    if(index > 7){return} //Limitamos a 8 resultados
                     let name = game.querySelector(".tab_item_name").textContent;
                     let imgUrl = game.querySelector(".tab_item_cap img").src;
                     let price = game.querySelector('.discount_original_price') ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] : [game.querySelector(".discount_final_price") ? {now:game.querySelector(".discount_final_price").textContent} : '']
@@ -184,7 +184,7 @@ const Game = {
     getGog: (req, res) => {
         (async () => {
             try {
-                // Abrimos una instancia del puppeteer y accedemos a la url de google
+                // Abrimos una instancia del puppeteer y accedemos a la url 
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
                 const response = await page.goto(
@@ -197,7 +197,7 @@ const Game = {
                     window: { document },
                 } = new jsdom.JSDOM(body);
 
-                // Seleccionamos los títulos y lo mostramos en consola
+                // Validamos si encontro resultados
                 let notFound = document.querySelector(".product-tile.product-tile--grid");
                 if (notFound === null) {
                     res.status(200).json({ gog: "null" });
@@ -208,7 +208,7 @@ const Game = {
                 let results = []
 
                 games.forEach((game, index) => {
-                    if(index>4){return}
+                    if(index>4){return} //Limitamos a 5 resultados
 
                     let name = game.querySelector(".product-tile__title").title;
                     let imgUrl = game.querySelector(".product-tile.product-tile--grid source").srcset.split(",")[0];
@@ -235,7 +235,7 @@ const Game = {
     getGogTopSellers:(req, res) => {
         (async () => {
             try {
-                // Abrimos una instancia del puppeteer y accedemos a la url de google
+                // Abrimos una instancia del puppeteer y accedemos a la url 
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
                 const response = await page.goto(
@@ -252,7 +252,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return}
+                    if(index > 7){return} //Limitamos a 8 resultados
 
                     let name = game.querySelector(".product-tile__title").textContent;
                     let imgUrl = game.querySelector("picture source").getAttribute('lazy-srcset').trim().split('\n')[0]
@@ -277,7 +277,7 @@ const Game = {
     getGogNewReleases:(req, res) => {
         (async () => {
             try {
-                // Abrimos una instancia del puppeteer y accedemos a la url de google
+                // Abrimos una instancia del puppeteer y accedemos a la url 
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
                 const response = await page.goto(
@@ -295,7 +295,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return}
+                    if(index > 7){return} //Limitamos a 8 resultados
 
                     let name = game.querySelector(".product-tile__title").textContent;
                     let imgUrl = game.querySelector("picture source").getAttribute('lazy-srcset').trim().split('\n')[0]
@@ -320,7 +320,7 @@ const Game = {
     getGogGoodOldGames:(req, res) => {
         (async () => {
             try {
-                // Abrimos una instancia del puppeteer y accedemos a la url de google
+                // Abrimos una instancia del puppeteer y accedemos a la url 
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
                 const response = await page.goto(
@@ -337,7 +337,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return}
+                    if(index > 7){return} //Limitamos a 8 resultados
 
                     let name = game.querySelector(".product-tile__title").textContent;
                     let imgUrl = game.querySelector("picture source").getAttribute('lazy-srcset').trim().split('\n')[0]
@@ -359,10 +359,11 @@ const Game = {
             }
         })();
     },
+
     getInstantGaming: (req, res) => {
         (async () => {
             try {
-                // Abrimos una instancia del puppeteer y accedemos a la url de google
+                // Abrimos una instancia del puppeteer y accedemos a la url
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
                 const response = await page.goto(
@@ -375,9 +376,8 @@ const Game = {
                     window: { document },
                 } = new jsdom.JSDOM(body);
 
-                // res.status(200).send(body)
 
-                // Seleccionamos los títulos y lo mostramos en consola
+                // Validamos si encontro resultados
                 let notFound = document.querySelector(".search .item .title");
                 if (notFound === null) {
                     res.status(200).json({ instantGaming: "null" });
@@ -393,6 +393,126 @@ const Game = {
                     let name = game.querySelector(".title").textContent;
                     let imgUrl = game.querySelector(".picture").attributes[1].textContent;
                     let price = [{now:`${game.querySelector(".price").textContent.split("€")[0]}€`}];
+                    let discount = game.querySelector(".discount").textContent;
+                    let url = game.querySelector("a").href;
+                    
+                    results.push({name, imgUrl, price, discount, url})
+                });
+
+                res.status(200).json(results);
+
+                // Cerramos el puppeteer
+                await browser.close();
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    },
+    getInstantGamingTopSellers: (req, res) => {
+        (async () => {
+            try {
+                // Abrimos una instancia del puppeteer y accedemos a la url 
+                const browser = await puppeteer.launch();
+                const page = await browser.newPage();
+                const response = await page.goto(
+                    `https://www.instant-gaming.com/es/`
+                );
+                const body = await response.text();
+
+                // Creamos una instancia del resultado devuelto por puppeter para parsearlo con jsdom
+                const {
+                    window: { document },
+                } = new jsdom.JSDOM(body);
+
+                let games = document.querySelectorAll('.products-trending .item')
+                let results = []
+
+                games.forEach((game, index) => {
+                    if(index > 4){return} //Limitando a 5 resultados
+
+                    let name = game.querySelector(".title").textContent;
+                    let imgUrl = game.querySelector(".picture").attributes[1].textContent;
+                    let price = [{now:`${game.querySelector(".price").textContent.split("€")[0]}€`}];
+                    let discount = game.querySelector(".discount").textContent;
+                    let url = game.querySelector("a").href;
+                    
+                    results.push({name, imgUrl, price, discount, url})
+                });
+
+                res.status(200).json(results);
+
+                // Cerramos el puppeteer
+                await browser.close();
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    },
+    getInstantGamingTopOffers: (req, res) => {
+        (async () => {
+            try {
+                // Abrimos una instancia del puppeteer y accedemos a la url 
+                const browser = await puppeteer.launch();
+                const page = await browser.newPage();
+                const response = await page.goto(
+                    `https://www.instant-gaming.com/es/`
+                );
+                const body = await response.text();
+
+                // Creamos una instancia del resultado devuelto por puppeter para parsearlo con jsdom
+                const {
+                    window: { document },
+                } = new jsdom.JSDOM(body);
+
+                let games = document.querySelectorAll('#promotions-home-block .item')
+                let results = []
+
+                games.forEach((game, index) => {
+                    if(index > 4){return} //Limitando a 5 resultados
+
+                    let name = game.querySelector(".title").textContent;
+                    let imgUrl = game.querySelector(".picture").attributes[1].textContent;
+                    let price = [{now:`${game.querySelector(".price .final").textContent}`},{old:`${game.querySelector(".retail").textContent}`}];
+                    let discount = game.querySelector(".discount").textContent;
+                    let url = game.querySelector("a").href;
+                    
+                    results.push({name, imgUrl, price, discount, url})
+                });
+
+                res.status(200).json(results);
+
+                // Cerramos el puppeteer
+                await browser.close();
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    },
+    getInstantGamingTopIndieGames: (req, res) => {
+        (async () => {
+            try {
+                // Abrimos una instancia del puppeteer y accedemos a la url 
+                const browser = await puppeteer.launch();
+                const page = await browser.newPage();
+                const response = await page.goto(
+                    `https://www.instant-gaming.com/es/`
+                );
+                const body = await response.text();
+
+                // Creamos una instancia del resultado devuelto por puppeter para parsearlo con jsdom
+                const {
+                    window: { document },
+                } = new jsdom.JSDOM(body);
+
+                let games = document.querySelectorAll('.indies-container .item')
+                let results = []
+
+                games.forEach((game, index) => {
+                    if(index > 4){return} //Limitando a 5 resultados
+
+                    let name = game.querySelector(".title").textContent;
+                    let imgUrl = game.querySelector(".picture").attributes[1].textContent;
+                    let price = [{now:`${game.querySelector(".price").textContent}`}];
                     let discount = game.querySelector(".discount").textContent;
                     let url = game.querySelector("a").href;
                     
