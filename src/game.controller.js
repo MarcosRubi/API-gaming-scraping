@@ -206,7 +206,11 @@ const Game = {
 
                     let name = game.querySelector(".product-tile__title").title;
                     let imgUrl = game.querySelector(".product-tile.product-tile--grid source").srcset.split(",")[0];
-                    let price = game.querySelector("price-value") ? game.querySelector("price-value").textContent.trim().split("$").splice(1) : ['Gratis'];
+                    let price = game.querySelector("price-value") 
+                        ? game.querySelector(".base-value") 
+                            ? [{now:game.querySelector(".final-value").textContent},{old:game.querySelector(".base-value").textContent}]
+                            : [{now:game.querySelector(".final-value").textContent}]
+                        : [{now:'Gratis'}];
                     let discount = price.length === 1 ? "" : game.querySelector("price-discount").textContent.trim();
                     let url = game.querySelector(".product-tile.product-tile--grid").href;
 
