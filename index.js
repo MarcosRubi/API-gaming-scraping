@@ -19,7 +19,10 @@ app.use(cors())
 app.get("/steam/:game", Game.getSteam);
 app.get("/gog/:game", Game.getGog);
 app.get("/instant-gaming/:game", Game.getInstantGaming);
-app.get("/games", Game.list);
+
+app.get("/top-sellers-steam", Game.getSteamTopSellers);
+app.get("/top-offers-steam", Game.getSteamTopOffers);
+app.get("/new-releases-steam", Game.getSteamNewReleases);
 
 
 //Iniciando el servidor
