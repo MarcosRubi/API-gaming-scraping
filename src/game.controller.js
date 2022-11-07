@@ -243,27 +243,23 @@ const Game = {
                     res.status(200).json({ instantGaming: "null" });
                     return;
                 }
-                let name = document.querySelector(
-                    ".search .item .title"
-                ).textContent;
-                let imgUrl = document.querySelector(".search .item .picture")
-                    .attributes[1].textContent;
-                let price = document
-                    .querySelector(".search .item .price")
-                    .textContent.split("€")[0];
-                let discount = document.querySelector(
-                    ".search .item a .discount"
-                ).textContent;
-                let url = document.querySelector(".search .item a").href;
-                const data = {
-                    name,
-                    imgUrl,
-                    price,
-                    discount,
-                    url,
-                };
 
-                res.status(200).json(data);
+                let games = document.querySelectorAll('.search.listing-games .item')
+                let results = []
+
+                games.forEach((game, index) => {
+                    if(index > 4){return} //Limitando a 5 resultados
+
+                    let name = game.querySelector(".title").textContent;
+                    let imgUrl = game.querySelector(".picture").attributes[1].textContent;
+                    let price = `${game.querySelector(".price").textContent.split("€")[0]}€`;
+                    let discount = game.querySelector(".discount").textContent;
+                    let url = game.querySelector("a").href;
+                    
+                    results.push({name, imgUrl, price, discount, url})
+                });
+
+                res.status(200).json(results);
 
                 // Cerramos el puppeteer
                 await browser.close();
