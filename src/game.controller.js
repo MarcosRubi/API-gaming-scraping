@@ -35,7 +35,9 @@ const Game = {
                     let imgUrl = game.querySelector("#search_resultsRows a img").src;
                     let price = game.querySelector('.search_price strike')
                         ? [{now:`$${game.querySelector('.search_price').textContent.trim().split('$').slice(2,3)[0]}`}, {old:game.querySelector('.search_price strike').textContent}]
-                        : [{now:game.querySelector('.search_price').textContent.trim()}]
+                        : game.querySelector('.search_price').textContent.trim()
+                            ? [{now:game.querySelector('.search_price').textContent.trim()}]
+                            : [{now:'No encontrado'}]
                     let discount = game.querySelector(".search_discount").textContent.trim()
                     let url = game.href
     
@@ -76,7 +78,11 @@ const Game = {
                     if(index > 7){return}
                     let name = game.querySelector(".tab_item_name").textContent;
                     let imgUrl = game.querySelector(".tab_item_cap img").src;
-                    let price = game.querySelector('.discount_original_price') ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] : [game.querySelector(".discount_final_price") ? {now:game.querySelector(".discount_final_price").textContent} : '']
+                    let price = game.querySelector('.discount_original_price') 
+                        ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] 
+                        : [game.querySelector(".discount_final_price") 
+                            ? {now:game.querySelector(".discount_final_price").textContent} 
+                            : {now: 'No encontrado'}]
                     let discount = game.querySelector(".discount_pct") ? game.querySelector(".discount_pct").textContent : ''
                     let url = game.href;
 
