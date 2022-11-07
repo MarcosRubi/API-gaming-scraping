@@ -25,6 +25,7 @@ app.get("/top-offers-steam", Game.getSteamTopOffers);
 app.get("/new-releases-steam", Game.getSteamNewReleases);
 
 app.get("/top-sellers-gog", Game.getGogTopSellers);
+app.get("/top-old-games-gog", Game.getGogGoodOldGames);
 app.get("/new-releases-gog", Game.getGogNewReleases);
 
 //Iniciando el servidor

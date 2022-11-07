@@ -317,7 +317,48 @@ const Game = {
             }
         })();
     },
+    getGogGoodOldGames:(req, res) => {
+        (async () => {
+            try {
+                // Abrimos una instancia del puppeteer y accedemos a la url de google
+                const browser = await puppeteer.launch();
+                const page = await browser.newPage();
+                const response = await page.goto(
+                    `https://www.gog.com/`
+                );
+                const body = await response.text();
 
+                // Creamos una instancia del resultado devuelto por puppeter para parsearlo con jsdom
+                const {
+                    window: { document },
+                } = new jsdom.JSDOM(body);
+
+                let games = document.querySelectorAll('.custom-section-collection')[2].querySelectorAll('.product-tile')
+                let results = [];
+
+                games.forEach((game, index) => {
+                    if(index > 7){return}
+
+                    let name = game.querySelector(".product-tile__title").textContent;
+                    let imgUrl = game.querySelector("picture source").getAttribute('lazy-srcset').trim().split('\n')[0]
+                    let price = game.querySelector('.product-tile__price').textContent  
+                        ? [{now:`$${game.querySelector('.product-tile__price-discounted').textContent.trim()}`},{old:`$${game.querySelector(".product-tile__price").textContent}`}] 
+                        : [{now:`$${game.querySelector('.product-tile__price-discounted').textContent.trim()}`}]
+                    let discount = game.querySelector(".product-tile__discount") ? game.querySelector(".product-tile__discount").textContent : ''
+                    let url = `https://www.gog.com${game.querySelector('a').href}`;
+
+                    results.push({name, imgUrl, price, discount, url});
+                });
+
+                res.status(200).send(results);
+
+                // Cerramos el puppeteer
+                await browser.close();
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    },
     getInstantGaming: (req, res) => {
         (async () => {
             try {
