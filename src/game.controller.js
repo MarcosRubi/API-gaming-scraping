@@ -147,30 +147,23 @@ const Game = {
                     res.status(200).json({ steam: "null" });
                     return;
                 }
-                let name = document.querySelector(
-                    "#search_resultsRows a .title"
-                ).textContent;
-                let imgUrl = document.querySelector(
-                    "#search_resultsRows a img"
-                ).src;
-                let price = document
-                    .querySelector("#search_resultsRows a .search_price")
-                    .textContent.trim()
-                    .split("$")
-                    .splice(1);
-                let discount = document
-                    .querySelector("#search_resultsRows a .search_discount")
-                    .textContent.trim();
-                let url = document.querySelector("#search_resultsRows a").href;
-                const data = {
-                    name,
-                    imgUrl,
-                    price,
-                    discount,
-                    url,
-                };
 
-                res.status(200).json(data);
+                let games = document.querySelectorAll('#search_resultsRows a')
+                let results = []
+
+                games.forEach((game, index) => {
+                    if(index > 4){return}
+
+                    let name = game.querySelector("#search_resultsRows a .title").textContent;
+                    let imgUrl = game.querySelector("#search_resultsRows a img").src;
+                    let price = game.querySelector('.search_price').textContent.trim().split('$').splice(1)
+                    let discount = game.querySelector(".search_discount").textContent.trim()
+                    let url = game.href
+    
+                    results.push({name, imgUrl, price, discount, url})
+                });
+
+                res.status(200).json(results);
 
                 // Cerramos el puppeteer
                 await browser.close();
