@@ -37,7 +37,7 @@ const Game = {
                         ? [{now:`$${game.querySelector('.search_price').textContent.trim().split('$').slice(2,3)[0]}`}, {old:game.querySelector('.search_price strike').textContent}]
                         : game.querySelector('.search_price').textContent.trim()
                             ? [{now:game.querySelector('.search_price').textContent.trim()}]
-                            : [{now:'No encontrado'}]
+                            : [{now:'$No encontrado'}]
                     let discount = game.querySelector(".search_discount").textContent.trim()
                     let url = game.href
     
@@ -82,7 +82,7 @@ const Game = {
                         ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] 
                         : [game.querySelector(".discount_final_price") 
                             ? {now:game.querySelector(".discount_final_price").textContent} 
-                            : {now: 'No encontrado'}]
+                            : {now: '$No encontrado'}]
                     let discount = game.querySelector(".discount_pct") ? game.querySelector(".discount_pct").textContent : ''
                     let url = game.href;
 
