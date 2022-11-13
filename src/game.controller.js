@@ -1,12 +1,32 @@
-const puppeteer = require("puppeteer");
 const jsdom = require("jsdom");
+let chrome = require('chrome-aws-lambda')
+let puppeteer
+
+
+if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+    puppeteer = require("puppeteer-core");
+}else{
+    puppeteer = require('puppeteer')
+}
+
+
 
 const Game = {
     getSteam: (req, res) => {
         (async () => {
+            let options = {}
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://store.steampowered.com/search/?term=${req.params.game}`
@@ -55,9 +75,21 @@ const Game = {
     },
     getSteamTopSellers: (req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
+
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://store.steampowered.com/?l=spanish`
@@ -89,7 +121,7 @@ const Game = {
                     results.push({name, imgUrl, price, discount, url});
                 });
 
-                res.status(200).send(results);
+                res.status(200).json(results);
 
                 // Cerramos el puppeteer
                 await browser.close();
@@ -100,9 +132,21 @@ const Game = {
     },
     getSteamTopOffers: (req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
+
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://store.steampowered.com/?l=spanish`
@@ -130,7 +174,7 @@ const Game = {
                     results.push({name, imgUrl, price, discount, url});
                 });
 
-                res.status(200).send(results);
+                res.status(200).json(results);
 
                 // Cerramos el puppeteer
                 await browser.close();
@@ -141,9 +185,21 @@ const Game = {
     },
     getSteamNewReleases: (req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
+
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://store.steampowered.com/?l=spanish`
@@ -171,7 +227,7 @@ const Game = {
                     results.push({name, imgUrl, price, discount, url});
                 });
 
-                res.status(200).send(results);
+                res.status(200).json(results);
 
                 // Cerramos el puppeteer
                 await browser.close();
@@ -183,9 +239,20 @@ const Game = {
 
     getGog: (req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://www.gog.com/en/games?query=${req.params.game}`
@@ -234,9 +301,21 @@ const Game = {
     },
     getGogTopSellers:(req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
+
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://www.gog.com/`
@@ -265,7 +344,7 @@ const Game = {
                     results.push({name, imgUrl, price, discount, url});
                 });
 
-                res.status(200).send(results);
+                res.status(200).json(results);
 
                 // Cerramos el puppeteer
                 await browser.close();
@@ -276,9 +355,21 @@ const Game = {
     },
     getGogNewReleases:(req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
+
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://www.gog.com/`
@@ -308,7 +399,7 @@ const Game = {
                     results.push({name, imgUrl, price, discount, url});
                 });
 
-                res.status(200).send(results);
+                res.status(200).json(results);
 
                 // Cerramos el puppeteer
                 await browser.close();
@@ -319,9 +410,21 @@ const Game = {
     },
     getGogGoodOldGames:(req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
+
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://www.gog.com/`
@@ -350,7 +453,7 @@ const Game = {
                     results.push({name, imgUrl, price, discount, url});
                 });
 
-                res.status(200).send(results);
+                res.status(200).json(results);
 
                 // Cerramos el puppeteer
                 await browser.close();
@@ -362,9 +465,21 @@ const Game = {
 
     getInstantGaming: (req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
+
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://www.instant-gaming.com/es/busquedas/?platform%5B%5D=1&type%5B%5D=&sort_by=bestsellers_desc&min_reviewsavg=10&max_reviewsavg=100&noreviews=1&min_price=0&max_price=100&noprice=1&gametype=games&query=${req.params.game}`
@@ -392,7 +507,7 @@ const Game = {
 
                     let name = game.querySelector(".title").textContent;
                     let imgUrl = game.querySelector(".picture").attributes[1].textContent;
-                    let price = [{now:`${game.querySelector(".price").textContent.split("€")[0]}€`}];
+                    let price = [{now:`${game.querySelector(".price").textContent.split("€")[0]}`}];
                     let discount = game.querySelector(".discount").textContent;
                     let url = game.querySelector("a").href;
                     
@@ -410,9 +525,21 @@ const Game = {
     },
     getInstantGamingTopSellers: (req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
+
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://www.instant-gaming.com/es/`
@@ -432,7 +559,7 @@ const Game = {
 
                     let name = game.querySelector(".title").textContent;
                     let imgUrl = game.querySelector(".picture").attributes[1].textContent;
-                    let price = [{now:`${game.querySelector(".price").textContent.split("€")[0]}€`}];
+                    let price = [{now:`${game.querySelector(".price").textContent}`}];
                     let discount = game.querySelector(".discount").textContent;
                     let url = game.querySelector("a").href;
                     
@@ -450,9 +577,21 @@ const Game = {
     },
     getInstantGamingTopOffers: (req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
+
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://www.instant-gaming.com/es/`
@@ -490,9 +629,21 @@ const Game = {
     },
     getInstantGamingTopIndieGames: (req, res) => {
         (async () => {
+            let options = {}
+
+            if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
+                options = {
+                    args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+                    defaultViewport: chrome.defaultViewport,
+                    executablePath: await chrome.executablePath,
+                    headless: true,
+                    ignoreHTTPSErrors: true,
+                }
+            }
+
             try {
                 // Abrimos una instancia del puppeteer y accedemos a la url 
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
                 const response = await page.goto(
                     `https://www.instant-gaming.com/es/`
