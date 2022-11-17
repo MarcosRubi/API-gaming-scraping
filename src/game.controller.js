@@ -107,7 +107,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return} //Limitamos a 8 resultados
+                    if(index > 29){return} //Limitamos a 30 resultados
                     let name = game.querySelector(".tab_item_name").textContent;
                     let imgUrl = game.querySelector(".tab_item_cap img").src;
                     let price = game.querySelector('.discount_original_price') 
@@ -158,13 +158,15 @@ const Game = {
                     window: { document },
                 } = new jsdom.JSDOM(body);
 
+                document.getElementById('tab_specials_content_trigger').click()
+                
                 let games = document.querySelectorAll(
                     "#tab_specials_content a"
                 );
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return} //Limitamos a 8 resultados
+                    if(index > 29){return} //Limitamos a 30 resultados
                     let name = game.querySelector(".tab_item_name").textContent;
                     let imgUrl = game.querySelector(".tab_item_cap img").src;
                     let price = game.querySelector('.discount_original_price') ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] : [game.querySelector(".discount_final_price") ? {now:game.querySelector(".discount_final_price").textContent} : '']
@@ -217,7 +219,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return} //Limitamos a 8 resultados
+                    if(index > 29){return} //Limitamos a 30 resultados
                     let name = game.querySelector(".tab_item_name").textContent;
                     let imgUrl = game.querySelector(".tab_item_cap img").src;
                     let price = game.querySelector('.discount_original_price') ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] : [game.querySelector(".discount_final_price") ? {now:game.querySelector(".discount_final_price").textContent} : '']
@@ -331,7 +333,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return} //Limitamos a 8 resultados
+                    if(index > 29){return} //Limitamos a 30 resultados
 
                     let name = game.querySelector(".product-tile__title").textContent;
                     let imgUrl = game.querySelector("picture source").getAttribute('lazy-srcset').trim().split('\n')[0]
@@ -386,7 +388,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return} //Limitamos a 8 resultados
+                    if(index > 29){return} //Limitamos a 30 resultados
 
                     let name = game.querySelector(".product-tile__title").textContent;
                     let imgUrl = game.querySelector("picture source").getAttribute('lazy-srcset').trim().split('\n')[0]
@@ -440,7 +442,7 @@ const Game = {
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 7){return} //Limitamos a 8 resultados
+                    if(index > 29){return} //Limitamos a 30 resultados
 
                     let name = game.querySelector(".product-tile__title").textContent;
                     let imgUrl = game.querySelector("picture source").getAttribute('lazy-srcset').trim().split('\n')[0]
