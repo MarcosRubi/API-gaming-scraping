@@ -168,7 +168,8 @@ const Game = {
                 games.forEach((game, index) => {
                     if(index > 29){return} //Limitamos a 30 resultados
                     let name = game.querySelector(".tab_item_name").textContent;
-                    let imgUrl = game.querySelector(".tab_item_cap img").src;
+                    // let imgUrl = game.querySelector(".tab_item_cap img").src;
+                    let imgUrl = "";
                     let price = game.querySelector('.discount_original_price') ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] : [game.querySelector(".discount_final_price") ? {now:game.querySelector(".discount_final_price").textContent} : '']
                     let discount = game.querySelector(".discount_pct") ? game.querySelector(".discount_pct").textContent : ''
                     let url = game.href;
@@ -221,7 +222,8 @@ const Game = {
                 games.forEach((game, index) => {
                     if(index > 29){return} //Limitamos a 30 resultados
                     let name = game.querySelector(".tab_item_name").textContent;
-                    let imgUrl = game.querySelector(".tab_item_cap img").src;
+                    // let imgUrl = game.querySelector(".tab_item_cap img").src;
+                    let imgUrl = "";
                     let price = game.querySelector('.discount_original_price') ? [{now:game.querySelector(".discount_final_price").textContent},{old:game.querySelector('.discount_original_price').textContent}] : [game.querySelector(".discount_final_price") ? {now:game.querySelector(".discount_final_price").textContent} : '']
                     let discount = game.querySelector(".discount_pct") ? game.querySelector(".discount_pct").textContent : ''
                     let url = game.href;
