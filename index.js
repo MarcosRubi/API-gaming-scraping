@@ -1,9 +1,8 @@
-const cors = require('cors')
+const cors = require("cors");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const Game = require('./src/game.controller')
-
+const Game = require("./src/game.controller");
 
 //Configuraciones
 app.set("port", process.env.PORT || 3000);
@@ -13,10 +12,11 @@ app.set("json spaces", 2);
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors())
+
+app.use(cors());
 
 //Routes
-app.get("/",  (req, res) => res.status(200).send('Hello'));
+app.get("/", (req, res) => res.status(200).send("Hello"));
 
 app.get("/steam/:game", Game.getSteam);
 app.get("/gog/:game", Game.getGog);
