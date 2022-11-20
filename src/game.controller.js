@@ -215,12 +215,12 @@ const Game = {
                 } = new jsdom.JSDOM(body);
 
                 let games = document.querySelectorAll(
-                    "#tab_newreleases_content a"
+                    "#tab_newreleases_content .tab_item"
                 );
                 let results = [];
 
                 games.forEach((game, index) => {
-                    if(index > 29){return} //Limitamos a 30 resultados
+                    if(index > 28){results.shift(); return} //Limitamos a 30 resultados
                     let name = game.querySelector(".tab_item_name").textContent;
                     // let imgUrl = game.querySelector(".tab_item_cap img").src;
                     let imgUrl = "";
