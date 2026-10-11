@@ -39,6 +39,12 @@ export class ListingsService {
 
     private async refresh(source: ListingSource): Promise<unknown> {
         const data = await source.fetch();
+        // Una lista vacía casi siempre es un fallo de la fuente (Steam con 403/
+        // 429 hace que todas las fichas fallen y se filtren todos los juegos):
+        // se trata como error para no pisar la última versión buena.
+        if (Array.isArray(data) && data.length === 0) {
+            throw new Error(`${source.key} vino vacía; se conserva la versión anterior`);
+        }
         if (source.enrich.categories) await this.categories.enrich(data, source.site);
         if (source.enrich.steam) await this.steamEnrich.enrich(data);
         await this.store.set(source.key, data);
