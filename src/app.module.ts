@@ -1,14 +1,17 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
-import { BrowserModule } from './browser/browser.module';
-import { OriginGuard } from './common/origin.guard';
-import { UpstreamErrorFilter } from './common/upstream-error.filter';
-import { GamesModule } from './games/games.module';
+import { UpstreamErrorFilter } from './common/filters/upstream-error.filter';
+import { OriginGuard } from './common/guards/origin.guard';
+import { AppConfigModule } from './config/config.module';
+import { BrowserModule } from './infrastructure/browser/browser.module';
+import { HealthController } from './modules/health/health.controller';
+import { ListingsModule } from './modules/listings/listings.module';
+import { SearchModule } from './modules/search/search.module';
 
 @Module({
-    imports: [ConfigModule.forRoot({ isGlobal: true }), ScheduleModule.forRoot(), BrowserModule, GamesModule],
+    imports: [AppConfigModule, ScheduleModule.forRoot(), BrowserModule, ListingsModule, SearchModule],
+    controllers: [HealthController],
     providers: [
         { provide: APP_GUARD, useClass: OriginGuard },
         { provide: APP_FILTER, useClass: UpstreamErrorFilter },

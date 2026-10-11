@@ -1,0 +1,18 @@
+node_modules
+dist
+*.tsbuildinfo
+.vercel
+
+# Variables de entorno: solo se versiona la plantilla
+.env
+.env.*
+!.env.example
+
+# Datos generados en runtime (cachés, overrides del self-heal, logs)
+data/*
+!data/.gitkeep
+
+# Herramientas locales
+.agents
+.claude
+skills-lock.json
