@@ -1,4 +1,5 @@
 node_modules
+dist
 data
 .git
 .gitignore
@@ -6,3 +7,6 @@ data
 .env.example
 README.md
 .editorconfig
+.agents
+.claude
+*.tsbuildinfo

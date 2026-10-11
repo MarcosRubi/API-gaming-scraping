@@ -1,32 +1,46 @@
 {
-    "name": "serverless",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon index.js",
-        "start": "node index.js"
-    },
-    "keywords": [],
+    "name": "games-scraping-api",
+    "version": "2.0.0",
+    "description": "API de scraping de precios de videojuegos (Steam, GOG, Instant Gaming, Humble, Fanatical) sobre NestJS",
     "author": "Marcos Rubi",
+    "private": true,
     "license": "ISC",
+    "scripts": {
+        "prebuild": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+        "build": "tsc -p tsconfig.build.json",
+        "start": "node dist/main",
+        "start:prod": "node dist/main",
+        "dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
+        "start:dev": "npm run dev",
+        "typecheck": "tsc --noEmit -p tsconfig.json"
+    },
+    "engines": {
+        "node": ">=20.19"
+    },
     "dependencies": {
-        "cors": "^2.8.5",
-        "dotenv": "^16.4.5",
-        "express": "^4.18.2",
+        "@nestjs/common": "^12.1.2",
+        "@nestjs/config": "^12.0.1",
+        "@nestjs/core": "^12.1.2",
+        "@nestjs/platform-express": "^12.1.2",
+        "@nestjs/schedule": "^12.0.2",
+        "cron": "4.4.0",
         "morgan": "^1.10.0",
-        "node-cron": "^3.0.3",
         "openai": "^4.68.0",
         "puppeteer-core": "^23.0.0",
         "puppeteer-extra": "^3.3.6",
-        "puppeteer-extra-plugin-stealth": "^2.11.2"
-    },
-    "engines": {
-        "node": "^20"
+        "puppeteer-extra-plugin-stealth": "^2.11.2",
+        "reflect-metadata": "^0.2.2",
+        "rxjs": "^7.8.1"
     },
     "devDependencies": {
-        "nodemon": "^2.0.20",
-        "puppeteer": "^23.0.0"
+        "@nestjs/cli": "^12.0.0",
+        "@nestjs/schematics": "^12.0.0",
+        "@types/express": "^5.0.0",
+        "@types/morgan": "^1.9.9",
+        "@types/node": "^24.0.0",
+        "puppeteer": "^23.0.0",
+        "source-map-support": "^0.5.21",
+        "tsc-watch": "^7.2.1",
+        "typescript": "~6.0.2"
     }
 }
