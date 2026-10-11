@@ -1,6 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
+import compression from 'compression';
 import morgan from 'morgan';
 import { AppModule } from './app.module';
 import { AppConfigService } from './config/app-config.service';
@@ -12,7 +13,11 @@ async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
     const config = app.get(AppConfigService);
 
-    app.set('json spaces', 2);
+    // JSON indentado solo en desarrollo (legible en el navegador); en QA y
+    // producción compacto.
+    if (config.get('APP_ENV') === 'development') app.set('json spaces', 2);
+    // gzip de las respuestas JSON (el catálogo baja de ~150 KB a ~25 KB).
+    app.use(compression());
     app.use(morgan(config.get('APP_ENV') === 'development' ? 'dev' : 'combined'));
     app.enableCors({
         origin: config.get('ALLOWED_ORIGINS'),

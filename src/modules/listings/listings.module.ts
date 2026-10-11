@@ -12,5 +12,6 @@ import { ListingsService } from './listings.service';
     imports: [ScrapingModule, SteamModule, CategoriesModule],
     controllers: [ListingsController],
     providers: [CacheStoreService, ListingRegistry, ListingsService, ListingsSchedulerService],
+    exports: [CacheStoreService, ListingRegistry],
 })
 export class ListingsModule {}

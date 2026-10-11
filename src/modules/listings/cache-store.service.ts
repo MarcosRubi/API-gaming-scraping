@@ -16,6 +16,13 @@ export interface CacheEntry {
 export class CacheStoreService implements OnModuleInit {
     private readonly logger = new Logger(CacheStoreService.name);
     private readonly store = new Map<string, CacheEntry>();
+    // Sube con cada actualización: quien derive datos de la caché (el
+    // catálogo) sabe si tiene que recalcular.
+    private versionCounter = 0;
+
+    get version(): number {
+        return this.versionCounter;
+    }
 
     async onModuleInit() {
         try {
@@ -35,6 +42,7 @@ export class CacheStoreService implements OnModuleInit {
 
     async set(key: string, data: unknown) {
         this.store.set(key, { data, updatedAt: Date.now(), lastError: null });
+        this.versionCounter++;
         await writeJsonFile(SNAPSHOT_PATH, Object.fromEntries(this.store)).catch((err) =>
             this.logger.error('no se pudo persistir el snapshot', err),
         );

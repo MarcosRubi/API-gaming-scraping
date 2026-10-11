@@ -54,7 +54,8 @@ export class ListingsService {
     // Recorre las fuentes de forma secuencial para no golpear los sitios a
     // la vez. Un fallo puntual no bloquea al resto y una pasada no se solapa
     // con la anterior.
-    async refreshAll(): Promise<void> {
+    // `olderThanMs`: saltea las fuentes actualizadas hace menos que eso.
+    async refreshAll({ olderThanMs }: { olderThanMs?: number } = {}): Promise<void> {
         if (this.running) {
             this.logger.warn('refresco anterior todavía en curso, se omite esta pasada');
             return;
@@ -62,6 +63,8 @@ export class ListingsService {
         this.running = true;
         try {
             for (const source of this.registry.sources) {
+                const updatedAt = this.store.get(source.key)?.updatedAt;
+                if (olderThanMs && updatedAt && Date.now() - updatedAt < olderThanMs) continue;
                 try {
                     await this.refresh(source);
                     this.logger.log(`actualizado ${source.key}`);
