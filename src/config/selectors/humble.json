@@ -1,0 +1,159 @@
+{
+    "search": {
+        "kind": "search",
+        "url": "https://www.humblebundle.com/store/search?sort=bestselling&search={term}",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".entity-block-container",
+        "container": ".entity-block-container",
+        "limit": 5,
+        "expectedMin": 1,
+        "notFoundShape": "humble",
+        "fields": {
+            "name": {
+                "selector": ".entity-title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": ".entity-image",
+                "attr": "src"
+            },
+            "price": {
+                "selector": ".price",
+                "attr": "text"
+            },
+            "priceOld": {
+                "selector": ".breakdown-full-price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".discount-amount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": ".entity-link",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    },
+    "top-sellers-humble": {
+        "kind": "listing",
+        "url": "https://www.humblebundle.com/store/search?sort=bestselling",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".entity-block-container",
+        "container": ".entity-block-container",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".entity-title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": ".entity-image",
+                "attr": "src"
+            },
+            "price": {
+                "selector": ".price",
+                "attr": "text"
+            },
+            "priceOld": {
+                "selector": ".breakdown-full-price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".discount-amount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": ".entity-link",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    },
+    "new-releases-humble": {
+        "kind": "listing",
+        "url": "https://www.humblebundle.com/store/search?sort=newest",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".entity-block-container",
+        "container": ".entity-block-container",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".entity-title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": ".entity-image",
+                "attr": "src"
+            },
+            "price": {
+                "selector": ".price",
+                "attr": "text"
+            },
+            "priceOld": {
+                "selector": ".breakdown-full-price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".discount-amount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": ".entity-link",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    },
+    "top-offers-humble": {
+        "kind": "listing",
+        "url": "https://www.humblebundle.com/store/search?sort=discount",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".entity-block-container",
+        "container": ".entity-block-container",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".entity-title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": ".entity-image",
+                "attr": "src"
+            },
+            "price": {
+                "selector": ".price",
+                "attr": "text"
+            },
+            "priceOld": {
+                "selector": ".breakdown-full-price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".discount-amount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": ".entity-link",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    }
+}

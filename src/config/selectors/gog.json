@@ -1,0 +1,213 @@
+{
+    "search": {
+        "kind": "search",
+        "url": "https://www.gog.com/en/games?query={term}",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".product-tile.product-tile--grid",
+        "container": ".paginated-products-grid product-tile",
+        "limit": 5,
+        "expectedMin": 1,
+        "notFoundShape": "gog",
+        "fields": {
+            "name": {
+                "selector": ".product-tile__title",
+                "attr": "title"
+            },
+            "imgUrl": {
+                "selector": ".product-tile.product-tile--grid source",
+                "attr": "srcset",
+                "splitOn": ",",
+                "index": 0
+            },
+            "price": {
+                "selector": ".final-value",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".base-value",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": "price-discount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": ".product-tile.product-tile--grid",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "Gratis",
+        "currency": "USD"
+    },
+    "top-sellers-gog": {
+        "kind": "listing",
+        "url": "https://www.gog.com/games",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".product-tile",
+        "container": ".product-tile",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".product-tile__title",
+                "attr": "title"
+            },
+            "imgUrl": {
+                "selector": "source",
+                "attr": "srcset",
+                "splitOn": ",",
+                "index": 0
+            },
+            "price": {
+                "selector": ".final-value",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".base-value",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": "price-discount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": null,
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "Gratis",
+        "currency": "USD"
+    },
+    "new-releases-gog": {
+        "kind": "listing",
+        "url": "https://www.gog.com/games?releaseStatuses=new-arrival&order=desc:storeReleaseDate",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".product-tile",
+        "container": ".product-tile",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".product-tile__title",
+                "attr": "title"
+            },
+            "imgUrl": {
+                "selector": "source",
+                "attr": "srcset",
+                "splitOn": ",",
+                "index": 0
+            },
+            "price": {
+                "selector": ".final-value",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".base-value",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": "price-discount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": null,
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "Gratis",
+        "currency": "USD"
+    },
+    "best-rated-gog": {
+        "kind": "listing",
+        "url": "https://www.gog.com/en/games?order=desc:rating&hideDLCs=true",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".product-tile",
+        "container": ".product-tile",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".product-tile__title",
+                "attr": "title"
+            },
+            "imgUrl": {
+                "selector": "source",
+                "attr": "srcset",
+                "splitOn": ",",
+                "index": 0
+            },
+            "price": {
+                "selector": ".final-value",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".base-value",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": "price-discount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": null,
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "Gratis",
+        "currency": "USD"
+    },
+    "top-old-games-gog": {
+        "kind": "listing",
+        "url": "https://www.gog.com/en/games?tags=classic",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".product-tile",
+        "container": ".product-tile",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".product-tile__title",
+                "attr": "title"
+            },
+            "imgUrl": {
+                "selector": "source",
+                "attr": "srcset",
+                "splitOn": ",",
+                "index": 0
+            },
+            "price": {
+                "selector": ".final-value",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".base-value",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": "price-discount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": null,
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "Gratis",
+        "currency": "USD"
+    }
+}

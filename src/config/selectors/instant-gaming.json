@@ -1,0 +1,189 @@
+{
+    "search": {
+        "kind": "search",
+        "url": "https://www.instant-gaming.com/es/busquedas/?platform%5B%5D=1&type%5B%5D=&sort_by=bestsellers_desc&min_reviewsavg=10&max_reviewsavg=100&noreviews=1&min_price=0&max_price=100&noprice=1&gametype=games&query={term}",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".search.listing-items .item",
+        "container": ".search.listing-items .item",
+        "limit": 5,
+        "expectedMin": 1,
+        "notFoundShape": "instantGaming",
+        "fields": {
+            "name": {
+                "selector": ".title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src",
+                "preferAttr": "data-src"
+            },
+            "price": {
+                "selector": ".price",
+                "attr": "text",
+                "splitOn": "€",
+                "index": 0
+            },
+            "discount": {
+                "selector": ".discount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": "a",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "EUR"
+    },
+    "top-sellers-instant-gaming": {
+        "kind": "listing",
+        "url": "https://www.instant-gaming.com/es/",
+        "waitForSelector": ".products-trending .item",
+        "container": ".products-trending .item",
+        "limit": 5,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src",
+                "preferAttr": "data-src"
+            },
+            "price": {
+                "selector": ".price",
+                "attr": "text",
+                "splitOn": "€",
+                "index": 0
+            },
+            "discount": {
+                "selector": ".discount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": "a",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "EUR"
+    },
+    "top-indie-games-instant-gaming": {
+        "kind": "listing",
+        "url": "https://www.instant-gaming.com/es/",
+        "waitForSelector": ".indies-container .item",
+        "container": ".indies-container .item",
+        "limit": 5,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src",
+                "preferAttr": "data-src"
+            },
+            "price": {
+                "selector": ".price",
+                "attr": "text"
+            },
+            "discount": {
+                "selector": ".discount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": "a",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "EUR"
+    },
+    "best-rated-instant-gaming": {
+        "kind": "listing",
+        "url": "https://www.instant-gaming.com/es/busquedas/?platform%5B%5D=1&type%5B%5D=&sort_by=bestsellers_desc&min_reviewsavg=90&max_reviewsavg=100&noreviews=0&min_price=0&max_price=100&noprice=1&gametype=games&query=",
+        "waitUntil": "networkidle2",
+        "waitForSelector": ".search.listing-items .item",
+        "container": ".search.listing-items .item",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src",
+                "preferAttr": "data-src"
+            },
+            "price": {
+                "selector": ".price",
+                "attr": "text",
+                "splitOn": "€",
+                "index": 0
+            },
+            "discount": {
+                "selector": ".discount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": "a",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "EUR"
+    },
+    "top-offers-instant-gaming": {
+        "kind": "listing",
+        "url": "https://www.instant-gaming.com/es/",
+        "waitForSelector": ".item .discount",
+        "container": ".item:has(.discount)",
+        "limit": 5,
+        "expectedMin": 1,
+        "fields": {
+            "name": {
+                "selector": ".title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src",
+                "preferAttr": "data-src"
+            },
+            "price": {
+                "selector": ".price",
+                "attr": "text",
+                "splitOn": "€",
+                "index": 0,
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".price .old, .retail",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".discount",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": "a",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "EUR"
+    }
+}

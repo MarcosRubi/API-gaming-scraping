@@ -1,0 +1,14 @@
+services:
+  games-api:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000" # loopback; el Nginx del VPS hace proxy_pass aquí
+    environment:
+      - PORT=3000
+      - CACHE_REFRESH_CRON=0 * * * *
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SELF_HEAL_MODEL=${SELF_HEAL_MODEL:-gpt-4o-mini}
+      - SELF_HEAL_COOLDOWN_MS=${SELF_HEAL_COOLDOWN_MS:-3600000}
+    volumes:
+      - ./data:/app/data # persiste cache-snapshot.json y selectors-overrides.json entre recreaciones del contenedor

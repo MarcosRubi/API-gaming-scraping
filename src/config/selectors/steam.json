@@ -1,0 +1,219 @@
+{
+    "search": {
+        "kind": "search",
+        "url": "https://store.steampowered.com/search/?term={term}",
+        "waitForSelector": "#search_resultsRows",
+        "container": "#search_resultsRows a.search_result_row",
+        "limit": 5,
+        "expectedMin": 1,
+        "notFoundShape": "steam",
+        "fields": {
+            "name": {
+                "selector": ".title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": ".search_capsule img",
+                "attr": "src"
+            },
+            "price": {
+                "selector": ".discount_final_price",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".discount_original_price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".discount_pct",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": null,
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    },
+    "top-sellers-steam": {
+        "kind": "listing",
+        "url": "https://store.steampowered.com/?l=spanish",
+        "waitForSelector": "#tab_topsellers_content",
+        "container": "#tab_topsellers_content a.tab_row_item",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".tab_item_title",
+                "attr": "text"
+            },
+            "categories": {
+                "selector": ".tab_item_top_tags",
+                "attr": "text",
+                "optional": true
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src",
+                "preferAttr": "data-delayed-image"
+            },
+            "price": {
+                "selector": ".discount_final_price",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".discount_original_price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".discount_pct",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": null,
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    },
+    "new-releases-steam": {
+        "kind": "listing",
+        "url": "https://store.steampowered.com/?l=spanish",
+        "waitForSelector": "#tab_newreleases_content",
+        "container": "#tab_newreleases_content a.tab_row_item",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": ".tab_item_title",
+                "attr": "text"
+            },
+            "categories": {
+                "selector": ".tab_item_top_tags",
+                "attr": "text",
+                "optional": true
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src",
+                "preferAttr": "data-delayed-image"
+            },
+            "price": {
+                "selector": ".discount_final_price",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".discount_original_price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".discount_pct",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": null,
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    },
+    "overwhelmingly-positive": {
+        "kind": "listing",
+        "url": "https://store.steampowered.com/search/?sort_by=_ASC&category1=998&os=win",
+        "waitUntil": "networkidle2",
+        "waitForSelector": "#search_resultsRows",
+        "scrollBeforeExtract": true,
+        "container": "#search_resultsRows a.search_result_row",
+        "limit": 12,
+        "expectedMin": 5,
+        "fields": {
+            "name": {
+                "selector": ".title",
+                "attr": "text"
+            },
+            "imgUrl": {
+                "selector": ".search_capsule img",
+                "attr": "src"
+            },
+            "reviews": {
+                "selector": ".search_reviewSummary",
+                "attr": "text",
+                "optional": true
+            },
+            "price": {
+                "selector": ".discount_final_price",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".discount_original_price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".discount_pct",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": null,
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    },
+    "top-offers-steam": {
+        "kind": "listing",
+        "url": "https://store.steampowered.com/sale/special_deals",
+        "waitUntil": "networkidle2",
+        "waitForSelector": "a[href*=\"/app/\"]",
+        "scrollBeforeExtract": true,
+        "container": "a[href*=\"/app/\"]:has(img[alt]:not([alt=\"\"]))",
+        "limit": 8,
+        "expectedMin": 3,
+        "currency": "USD",
+        "fields": {
+            "name": {
+                "selector": "img",
+                "attr": "alt"
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src"
+            },
+            "price": {
+                "textPattern": "^\\$\\d",
+                "patternIndex": -1,
+                "optional": true
+            },
+            "priceOld": {
+                "textPattern": "^\\$\\d",
+                "patternIndex": 0,
+                "patternMinCount": 2,
+                "optional": true
+            },
+            "discount": {
+                "textPattern": "^-\\d+%$",
+                "optional": true
+            },
+            "url": {
+                "selector": null,
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado"
+    }
+}

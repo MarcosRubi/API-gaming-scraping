@@ -1,0 +1,175 @@
+{
+    "search": {
+        "kind": "search",
+        "url": "https://www.fanatical.com/en/search?search={term}",
+        "waitUntil": "networkidle2",
+        "dismissSelector": ".accept-cookies-btn",
+        "waitForSelector": ".HitCard",
+        "container": ".HitCard",
+        "limit": 5,
+        "expectedMin": 1,
+        "notFoundShape": "fanatical",
+        "fields": {
+            "name": {
+                "selector": "img",
+                "attr": "alt",
+                "splitOn": "Product cover for ",
+                "index": 1
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src"
+            },
+            "price": {
+                "selector": ".card-price",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".was-price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".card-saving",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": "a",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    },
+    "top-sellers-fanatical": {
+        "kind": "listing",
+        "url": "https://www.fanatical.com/en/top-sellers",
+        "waitUntil": "networkidle2",
+        "dismissSelector": ".accept-cookies-btn",
+        "waitForSelector": ".HitCard",
+        "container": ".HitCard",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": "img",
+                "attr": "alt",
+                "splitOn": "Product cover for ",
+                "index": 1
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src"
+            },
+            "price": {
+                "selector": ".card-price",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".was-price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".card-saving",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": "a",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    },
+    "new-releases-fanatical": {
+        "kind": "listing",
+        "url": "https://www.fanatical.com/en/new-releases",
+        "waitUntil": "networkidle2",
+        "dismissSelector": ".accept-cookies-btn",
+        "waitForSelector": ".HitCard",
+        "container": ".HitCard",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": "img",
+                "attr": "alt",
+                "splitOn": "Product cover for ",
+                "index": 1
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src"
+            },
+            "price": {
+                "selector": ".card-price",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".was-price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".card-saving",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": "a",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    },
+    "top-offers-fanatical": {
+        "kind": "listing",
+        "url": "https://www.fanatical.com/en/on-sale",
+        "waitUntil": "networkidle2",
+        "dismissSelector": ".accept-cookies-btn",
+        "waitForSelector": ".HitCard",
+        "container": ".HitCard",
+        "limit": 8,
+        "expectedMin": 3,
+        "fields": {
+            "name": {
+                "selector": "img",
+                "attr": "alt",
+                "splitOn": "Product cover for ",
+                "index": 1
+            },
+            "imgUrl": {
+                "selector": "img",
+                "attr": "src"
+            },
+            "price": {
+                "selector": ".card-price",
+                "attr": "text",
+                "optional": true
+            },
+            "priceOld": {
+                "selector": ".was-price",
+                "attr": "text",
+                "optional": true
+            },
+            "discount": {
+                "selector": ".card-saving",
+                "attr": "text",
+                "optional": true
+            },
+            "url": {
+                "selector": "a",
+                "attr": "href"
+            }
+        },
+        "fallbackPriceText": "No encontrado",
+        "currency": "USD"
+    }
+}
