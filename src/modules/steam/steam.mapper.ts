@@ -1,5 +1,5 @@
 import type { Game, GameDetails, PriceEntry } from '../../common/types/game.types';
-import type { SteamAppData, SteamListItem, SteamPriceOverview } from './steam.types';
+import type { SteamAppData, SteamListItem } from './steam.types';
 
 // Descriptores de contenido de Steam: 3 = sexual solo adultos,
 // 4 = desnudos/sexual frecuente. Esos juegos no se muestran.
@@ -35,18 +35,21 @@ export function fromListItem(item: SteamListItem, comingSoon = false): Game {
     };
 }
 
-// Resultado de búsqueda por género (+ precio por lote) → Game.
-export function fromSearch(appId: string, name: string, price: SteamPriceOverview | null, headerUrl: string): Game {
+// Ficha completa (appdetails) → Game.
+export function fromAppData(data: SteamAppData): Game {
+    const id = String(data.steam_appid);
+    const price = data.price_overview;
+    const comingSoon = data.release_date?.coming_soon ?? false;
     return {
-        name,
-        imgUrl: headerUrl,
+        name: data.name,
+        imgUrl: data.header_image,
         price: price
             ? buildPrice(price.final, price.initial, price.discount_percent > 0, false)
-            : [{ now: 'Gratis' }],
+            : buildPrice(0, null, false, comingSoon && !data.is_free),
         discount: price?.discount_percent ? `-${price.discount_percent}%` : '',
-        url: storeUrl(appId),
-        appId,
-        steamAppId: appId,
+        url: storeUrl(id),
+        appId: id,
+        steamAppId: id,
     };
 }
 

@@ -31,8 +31,18 @@ export interface Game {
     // Valoración 0-5 a partir de las reseñas de Steam, y cantidad de reseñas.
     rating?: number;
     ratingCount?: number;
+    // URLs reales de los assets de Steam (las rutas llevan hash).
+    art?: GameArt;
     // Ficha ampliada (solo en listas que la necesitan: hero, destacado).
     details?: GameDetails;
+}
+
+export interface GameArt {
+    // Portada vertical 600x900.
+    portrait: string | null;
+    // Arte ancho 1920x620.
+    hero: string | null;
+    header: string | null;
 }
 
 export interface Trailer {
@@ -63,6 +73,7 @@ export interface NewsItem {
     feed: string;
     gameName: string;
     steamAppId: string;
+    imageUrl: string | null;
 }
 
 // Forma "no encontrado" que el frontend espera: { steam: "null" }.

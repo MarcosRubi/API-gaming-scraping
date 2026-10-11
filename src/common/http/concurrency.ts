@@ -39,4 +39,17 @@ export class TtlCache<T> {
     set(key: string, value: T, ttlMs = this.ttlMs): void {
         this.entries.set(key, { value, expires: Date.now() + ttlMs });
     }
+
+    // Para persistir en disco y recuperar tras un reinicio.
+    toJSON(): Record<string, { value: T; expires: number }> {
+        const now = Date.now();
+        return Object.fromEntries([...this.entries].filter(([, entry]) => entry.expires > now));
+    }
+
+    load(saved: Record<string, { value: T; expires: number }> | undefined): void {
+        const now = Date.now();
+        for (const [key, entry] of Object.entries(saved ?? {})) {
+            if (entry.expires > now) this.entries.set(key, entry);
+        }
+    }
 }

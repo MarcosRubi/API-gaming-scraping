@@ -52,6 +52,17 @@ export interface SteamReviewSummary {
     total_reviews: number;
 }
 
+export interface SteamStoreItem {
+    appid?: number;
+    success: number;
+    assets?: {
+        asset_url_format: string;
+        header?: string;
+        library_capsule?: string;
+        library_hero?: string;
+    };
+}
+
 export interface SteamNewsRaw {
     gid: string;
     title: string;

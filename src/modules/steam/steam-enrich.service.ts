@@ -39,13 +39,21 @@ export class SteamEnrichService implements OnModuleInit {
     // devuelve intacto.
     async enrich<T>(items: T): Promise<T> {
         if (!Array.isArray(items)) return items;
-        for (const game of items as Game[]) {
+        const games = items as Game[];
+        for (const game of games) {
             try {
                 game.steamAppId ??= (await this.matchAppId(game)) ?? undefined;
                 if (game.steamAppId) Object.assign(game, await this.rating(game.steamAppId));
             } catch {
                 // un juego sin equivalencia o sin reseñas no rompe la lista
             }
+        }
+        // Portadas reales de todos los juegos de la lista en una sola llamada.
+        const ids = games.map((g) => g.steamAppId).filter((id): id is string => !!id);
+        const art = await this.steam.storeAssets(ids).catch(() => new Map());
+        for (const game of games) {
+            const found = game.steamAppId ? art.get(game.steamAppId) : null;
+            if (found) game.art = found;
         }
         await this.persist();
         return items;

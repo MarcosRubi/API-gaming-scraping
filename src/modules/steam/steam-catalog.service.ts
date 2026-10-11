@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { Game, NewsItem } from '../../common/types/game.types';
 import { SteamApiClient } from './steam-api.client';
-import { fromListItem, fromSearch, isPlayableGame, toDetails } from './steam.mapper';
+import { fromAppData, fromListItem, isPlayableGame, toDetails } from './steam.mapper';
 import type { Genre } from './steam-genres';
 import type { SteamListItem } from './steam.types';
 
@@ -61,15 +61,19 @@ export class SteamCatalogService {
         return this.withDetails(candidates, 1, { requireHero: true, minTrailers: 2 }, true);
     }
 
+    // Más populares de un género. La búsqueda por etiqueta solo da nombre y
+    // appid: la imagen y el precio salen de la ficha (en caché 12 h), que
+    // además permite filtrar contenido adulto y software.
     async genre(genre: Genre): Promise<Game[]> {
-        const results = (await this.steam.searchByTag(genre.tagId, GENRE_SIZE + 4)).slice(0, GENRE_SIZE);
-        const prices = await this.steam.prices(results.map((r) => r.appId));
-        // Sin precios no se publica la lista (mostraría todo como gratis): el
-        // error deja la versión anterior en caché y el próximo cron reintenta.
-        if (!prices) throw new Error(`Steam no devolvió precios para el género ${genre.slug}`);
-        return results.map((r) =>
-            fromSearch(r.appId, r.name, prices[r.appId] ?? null, this.steam.assetUrl(r.appId, 'header.jpg')),
-        );
+        const results = await this.steam.searchByTag(genre.tagId, GENRE_SIZE + 6);
+        if (results.length === 0) throw new Error(`Steam no devolvió juegos para el género ${genre.slug}`);
+        const games: Game[] = [];
+        for (const result of results) {
+            if (games.length >= GENRE_SIZE) break;
+            const data = await this.steam.appDetails(result.appId);
+            if (isPlayableGame(data)) games.push(fromAppData(data));
+        }
+        return games;
     }
 
     // Últimas noticias oficiales de los juegos más vendidos.
@@ -83,6 +87,7 @@ export class SteamCatalogService {
             if (!isPlayableGame(await this.steam.appDetails(appId))) continue;
             const [latest] = await this.steam.news(appId, 1);
             if (!latest) continue;
+            const art = (await this.steam.storeAssets([appId])).get(appId);
             news.push({
                 id: latest.gid,
                 title: latest.title,
@@ -92,6 +97,7 @@ export class SteamCatalogService {
                 feed: latest.feedlabel,
                 gameName: item.name,
                 steamAppId: appId,
+                imageUrl: art?.hero ?? art?.header ?? item.header_image ?? null,
             });
         }
         return news;
@@ -111,14 +117,16 @@ export class SteamCatalogService {
             if (!isPlayableGame(data) || !data.short_description) continue;
             if ((data.movies?.filter((m) => m.hls_h264).length ?? 0) < minTrailers) continue;
 
-            const heroUrl = this.steam.assetUrl(appId, 'library_hero.jpg');
+            const art = (await this.steam.storeAssets([appId])).get(appId) ?? null;
+            if (requireHero && !art?.hero) continue;
+            // El logo no viene en los assets del catálogo: se comprueba aparte.
             const logoUrl = this.steam.assetUrl(appId, 'logo.png');
-            const [hasHero, hasLogo] = await Promise.all([this.steam.assetExists(heroUrl), this.steam.assetExists(logoUrl)]);
-            if (requireHero && !hasHero) continue;
+            const hasLogo = await this.steam.assetExists(logoUrl);
 
-            const details = toDetails(data, hasHero ? heroUrl : null, hasLogo ? logoUrl : null);
+            const details = toDetails(data, art?.hero ?? null, hasLogo ? logoUrl : null);
             games.push({
                 ...fromListItem(item, comingSoonAware && details.comingSoon),
+                art: art ?? undefined,
                 details,
                 categories: details.genres,
             });
