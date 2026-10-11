@@ -9,7 +9,9 @@ export type SteamListKind = 'specials' | 'coming_soon' | 'new_releases' | 'top_s
 
 const LIST_SIZE = 12;
 const SPOTLIGHT_SIZE = 5;
-const GENRE_SIZE = 10;
+// Varios más de los que se muestran: la home descarta los que ya aparecen
+// en secciones de arriba y aún así le quedan cinco.
+const GENRE_SIZE = 16;
 
 // Listas de la home armadas con las APIs JSON de Steam. Cada una sale de
 // una fuente distinta (destacados, ofertas, próximos, novedades, géneros),
